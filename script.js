@@ -3,13 +3,12 @@
 const gameBoardDIV = document.getElementById('gameboard');
 const loadingBeeDIV = document.getElementById('loadingBee');
 const gameDIV = document.getElementById('game');
-const eventA = document.getElementById('word');
 const lettersDIV = document.getElementById('letters');
 
 // get the div items in the wordsBank
 const wordsBankDIV = document.querySelector('#wordsBank');
 const foundTitle = document.querySelector('#foundTitle');
-const wordsDIV = document.querySelector('#words')
+const wordsDIV = document.querySelector('#word')
 
 //create your buttons
 const a_button = document.createElement('button');
@@ -44,6 +43,7 @@ f_button.setAttribute("value", "F");
 
 const addButton = document.createElement('div');
 addButton.classList.add("button", "is-black");
+addButton.innerHTML = "ADD";
 
 //write the function to add the buttons to your HTML on page load
 //** NOTE: setTimeout is just to slow the load so you can see it. but you could use it to add a CSS loaders and other neat stuff!! :)
@@ -60,7 +60,7 @@ document.addEventListener("DOMContentLoaded", () => {
 (() => {
     setTimeout(() => {
         loadingBeeDIV.classList.toggle("hide");
-        eventA.classList.toggle("hide");
+        wordsDIV.classList.toggle("hide");
         wordsBankDIV.classList.toggle("hide");
         lettersDIV.appendChild(a_button);
         lettersDIV.appendChild(b_button);
@@ -74,44 +74,62 @@ document.addEventListener("DOMContentLoaded", () => {
 //Step-3 write the listeners to take a letter and add to your word div
 let clickedLetter = '';
 
-a_button.addEventListener("click", (eventA) => {
-    eventA.preventDefault();
+a_button.addEventListener("click", (event) => {
+    event.preventDefault();
     clickedLetter = a_button.value;
     wordsDIV.innerHTML += clickedLetter;
     console.log(clickedLetter, "button clicked");
 });
 
-b_button.addEventListener("click", (eventB) => {
-    eventB.preventDefault();
+b_button.addEventListener("click", (event) => {
+    event.preventDefault();
     clickedLetter = b_button.value;
     wordsDIV.innerHTML += clickedLetter;
     console.log(clickedLetter, "button clicked");
 });
-c_button.addEventListener("click", (eventC) => {
-    eventC.preventDefault();
+c_button.addEventListener("click", (event) => {
+    event.preventDefault();
     clickedLetter = c_button.value;
     wordsDIV.innerHTML += clickedLetter;
     console.log(clickedLetter, "button clicked");
 });
-d_button.addEventListener("click", (eventD) => {
-    eventD.preventDefault();
+d_button.addEventListener("click", (event) => {
+    event.preventDefault();
     clickedLetter = d_button.value;
     wordsDIV.innerHTML += clickedLetter;
     console.log(clickedLetter, "button clicked");
 });
-e_button.addEventListener("click", (eventE) => {
-    eventE.preventDefault();
+e_button.addEventListener("click", (event) => {
+    event.preventDefault();
     clickedLetter = e_button.value;
     wordsDIV.innerHTML += clickedLetter;
     console.log(clickedLetter, "button clicked");
 });
-f_button.addEventListener("click", (eventF) => {
-    eventF.preventDefault();
+f_button.addEventListener("click", (event) => {
+    event.preventDefault();
     clickedLetter = f_button.value;
     wordsDIV.innerHTML += clickedLetter;
     console.log(clickedLetter, "button clicked");
 });
 //add a function to take your word from the word div and add it to an Array to then add to your Words Bank
 
+const wordsBankArray = [];
+let wordCount = 0;
 
+foundTitle.innerHTML = `You have found ${wordCount} words!`;
+wordsBankDIV.appendChild(foundTitle);
 
+addButton.addEventListener("click", (e) => {
+    e.preventDefault();
+    wordsBankDIV.push(wordsDIV.innerHTML);
+    console.log("wordsBankArray", wordsBankArray);
+
+    let newWordDIV = document.createElement("div");
+    newWordDIV.setAttribute('id', `${wordCount}`);
+    newWordDIV.classList.add("is-size-2");
+    newWordDIV.innerHTML = wordsBankArray[wordCount];
+    wordsBankArray.appendChild(newWordDIV);
+    wordCount++;
+    foundTitle.innerHTML = `You have found ${wordCount} words!`;
+    wordsDIV.innerHTML = "";
+});
